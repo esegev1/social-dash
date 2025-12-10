@@ -1,0 +1,65 @@
+
+
+
+.data-table-container {
+  height: 50vh;
+  overflow: auto;
+  border: 1px solid #ddd;
+  width: 100%;
+  /* max-width: 100%; */
+  background: white;
+  border-radius: 10px;
+}
+
+.data-table {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, auto)); #repeat(7, auto); */
+  gap: 1rem;
+  padding: 1rem;
+  /* width: max-content; */
+  min-width: 100%;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Make thead and tbody use the same grid */
+.data-table thead,
+.data-table tbody {
+  display: contents;
+}
+
+/* Header row styling */
+.data-table thead tr {
+  display: contents;
+}
+
+.data-table thead th {
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+  padding: 0.5rem 0 0.5rem 0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+/* Body rows */
+.data-table tbody tr {
+  display: contents;
+}
+
+/* All cells */
+.data-table th,
+.data-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+/* First column - left aligned */
+.data-table th:first-child,
+.data-table td:first-child {
+  text-align: left;
+}

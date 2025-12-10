@@ -1,0 +1,52 @@
+.post-data-container {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: auto minmax(auto, max-content);
+    gap: 1rem;
+    justify-content: center;
+
+}
+.table-summary {
+    grid-column: 2;
+    grid-row: 1;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 100%;
+    width: 100%;
+    /* flex-direction: column; */
+    padding: 10px;
+    box-sizing: border-box;
+
+}
+
+.post-selection {
+    display: flex;
+    gap: 10px;
+    width: 30vw;
+    /* flex-direction: column; */
+    
+}
+
+#post-select {
+    width: 15vw;
+    border-radius: 5px;
+    padding: 2px;
+    background: white;
+    color: #666666;
+    
+    
+}
+
+/* .post-options {
+    white-space: normal;
+} */
+
+/* .data-viz-container {
+    display: flex;
+    gap: 15px;
+    height: 50vh;
+    width: 100vh;
+    flex-shrink: 0;
+
+} */
