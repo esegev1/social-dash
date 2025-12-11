@@ -1,20 +1,25 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
-import { useEffect } from 'react';
-import { initializeInterceptors } from './api/setupInterceptors';
+// 🛑 REMOVED: import { useEffect } from 'react'; // Not needed since interceptor setup is in AuthContext
+// 🛑 REMOVED: import { initializeInterceptors } from './api/setupInterceptors'; // Not needed here
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 import LoginPage from "./components/LoginPage/LoginPage.jsx";
 import DashboardPage from './pages/DashboardPage.jsx';
 import './App.css';
 
-// Wrapper to initialize interceptors after AuthProvider is ready
+// Wrapper component
 const AppContent = () => {
-  const authContext = useAuth();
+  // We still call useAuth, but the interceptor initialization logic is gone.
+  // The interceptors are now initialized synchronously inside AuthProvider.
+  const authContext = useAuth(); 
 
+  // 🛑 The old useEffect block is removed entirely!
+  /*
   useEffect(() => {
     initializeInterceptors(authContext);
-  }, [authContext.accessToken]); // Re-initialize when token changes
+  }, [authContext.accessToken]); 
+  */
 
   return (
     <BrowserRouter>

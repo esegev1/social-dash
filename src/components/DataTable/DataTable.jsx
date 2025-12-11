@@ -8,7 +8,7 @@ const DataTable = (props) => {
   if (tableType === "post_trends") {
     fieldsArr = ['local_time', 'delta_views', 'delta_reach', 'delta_likes', 'delta_comments', 'delta_saves', 'delta_shares']
   } else if (tableType === "latest_posts") {
-    fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'delta_likes', 'comments', 'saves', 'shares' ]
+    fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'likes', 'comments', 'saves', 'shares' ]
   }
   
   const labelFixer = (label) => {
@@ -17,6 +17,7 @@ const DataTable = (props) => {
       label = label.replace(/_/g, " ") 
     } else {
       label = label.replace(/delta_/g, "")
+      label = label.replace(/_/g, " ") 
     }
     
     // Get the first character and convert it to uppercase
