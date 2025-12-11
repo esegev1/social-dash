@@ -1,80 +1,43 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Graph from './components/Graph/Graph.jsx'
-import PostData from './components/PostData/PostData.jsx'
-import { fetchLastXPosts } from '../src/services/dataService';
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
+import { useEffect } from 'react';
+import { initializeInterceptors } from './api/setupInterceptors';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
+import LoginPage from "./components/LoginPage/LoginPage.jsx";
+import DashboardPage from './pages/DashboardPage.jsx';
+import './App.css';
 
-
-import './App.css'
-import ExecSummary from './components/ExecSummary/ExecSummary.jsx';
-import DataTable from './components/DataTable/DataTable.jsx';
-
-
-const App = () => {
-  
-  const [latestPosts, setLatestPosts] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
+// Wrapper to initialize interceptors after AuthProvider is ready
+const AppContent = () => {
+  const authContext = useAuth();
 
   useEffect(() => {
-        const pullLatestPosts = async () => {
-            setIsLoading(true);
-            const data = await fetchLastXPosts(20)
-            console.log("last x posts: ", data)
-            setLatestPosts(data)
-            setIsLoading(false);
-        };
-
-        pullLatestPosts();
-    }, [])
-    // const latestFollowers = execSummaryData.followers
-    // const totalViews = execSummaryData.total_views
-    // const totalLikes = execSummaryData.total_likes
-    // const totalComments = execSummaryData.total_comments
-
-    if (isLoading) {
-        return <div className="exec-summary">Loading executive summary...</div>;
-    }
-
-  // const [followersCount, setFollowersCount] = useState([])
-  // const [postsData, setPostsData] = useState([])
-  // const [activityData, setActivityData] = useState([])
-
-  // useEffect(() => {
-  //   const pullFollowerCounts = async () => {
-  //     const data = await fetchFollowerCounts()
-  //     setFollowersCount(data)
-  //   };
-  //   const pullAllPosts = async () => {
-  //     // try {
-  //     const data = await fetchAllPosts();
-  //     setPostsData(data)
-  //     // } catch (error) {
-  //     //   console.error(`Error loading data: ${error}`);
-  //     // }
-  //   };
-  //   const pullAllActivity = async () => {
-  //     const data = await fetchAllActivity()
-  //     setActivityData(data)
-  //   } ;
-
-  //   pullAllActivity();
-  //   pullFollowerCounts();
-  //   pullAllPosts();
-  // }, [])
+    initializeInterceptors(authContext);
+  }, [authContext.accessToken]); // Re-initialize when token changes
 
   return (
-    <>
-      <h1>Frida Sofia Eats</h1>
-      <ExecSummary />
-      <PostData />
-      <div className="latest-posts-table">
-        <DataTable  data={latestPosts} tableType="latest_posts"/>
+    <BrowserRouter>
+      <div className="app-container">
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
+          <Route path="*" element={<div>404 Page Not Found</div>} />
+        </Routes>
       </div>
-      
-    </>
+    </BrowserRouter>
   );
+};
 
+const App = () => {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 };
 
 export default App;
