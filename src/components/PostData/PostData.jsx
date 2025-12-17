@@ -4,61 +4,22 @@ import Graph from "../Graph/Graph";
 import DataTable from '../DataTable/DataTable';
 import './PostData.css'
 
-const PostData = () => {
+const PostData = (props) => {
     
-    const [isLoading, setIsLoading] = useState(true);
-    const [activityById, setActivityById] = useState([]);
-    const [postList, setPostList] = useState([]);
-    const [selectedPostId, setSelectedPostId] = useState(null);
+    const postList = props.postList
+    const selectedPostId = props.selectedPostId
+    const activityById = props.activityById
+    const postIdChange = props.postIdChange
 
-    const handlePostIdChange = useCallback(async (event) => {
+    const handlePostIdChange = (event) => {
         const newPostId = event.target.value;
-
-        try {
-            const data = await fetchActivityDataById(newPostId);
-            console.log("activity by id: ", data);
-            setSelectedPostId(newPostId);
-            setActivityById(data);
-        } catch (error) {
-             console.error("Failed to fetch activity by ID:", error);
-        }
-        
-    }, []);
-
-    useEffect(() => {
-        const pullPostListAndDefaultActivity = async () => {
-            setIsLoading(true);
-            try {
-                const listData = await fetchPostList();
-                console.log("all posts: ", listData);
-                setPostList(listData);
-                
-                if (listData && listData.length > 0) {
-                    const defaultId = listData[0].id;
-                    setSelectedPostId(defaultId);
-                        
-                    const postActivity = await fetchActivityDataById(defaultId);
-                    setActivityById(postActivity);
-                }
-            } catch (error) {
-                console.error("Error during initial data fetch in PostData:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        pullPostListAndDefaultActivity();
-
-    }, []);
-
-    if (isLoading) {
-        return <div className="post-data-container">Loading post data...</div>;
+        postIdChange(newPostId)
     }
 
     return (
         <div className="post-data-container">
             <Graph data={activityById}/> 
-            <div className="table-summary">
+            <div className="table-summary container-style">
                 <div className="post-selection">
                     <label htmlFor="post-select">Choose a Post:</label>
                     <select 
@@ -76,9 +37,11 @@ const PostData = () => {
                         )}
                     </select>
                 </div>
-                
             </div>
-            <DataTable data={activityById} tableType="post_trends"/>
+            <div className="container-style">
+                <DataTable data={activityById} tableType="post_trends"/>
+            </div>
+            
         </div>
     )
 };

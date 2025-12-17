@@ -31,6 +31,9 @@ const DataTable = (props) => {
 
   return (
     <div className="data-table-container">
+      <div className="data-summary-container">
+        
+      </div>
       <table className="data-table" style={ {gridTemplateColumns: `repeat(${fieldsArr.length}, auto)`}}>
         <thead>
           <tr>

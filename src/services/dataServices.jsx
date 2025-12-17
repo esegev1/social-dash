@@ -66,3 +66,14 @@ export const fetchExecSummaryData = async () => {
         logAndThrowError('failed to fetch execsummary', error);
     }
 };
+
+export const updatePostMetadataTable = async () => {
+    try {
+        console.log(`service kicked off: updatePostMetadataTable`);
+        const res = await axiosClient.get('update');
+        return res.data;
+    } catch (error) {
+        logAndThrowError('failed to update post_metadata table', error);
+    }
+
+}

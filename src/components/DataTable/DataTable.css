@@ -4,11 +4,11 @@
 .data-table-container {
   height: 50vh;
   overflow: auto;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   width: 100%;
   /* max-width: 100%; */
-  background: white;
-  border-radius: 10px;
+  /* background: white;
+  border-radius: 10px; */
 }
 
 .data-table {

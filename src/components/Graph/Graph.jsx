@@ -76,7 +76,7 @@ const Graph = (props) => {
     console.log("from graph, data: ", data)
 
     return (
-        <div className="graph">
+        <div className="graph container-style">
 
             <ResponsiveContainer width="100%" height="100%" minWidth="0" minHeight={undefined} >
                 <ComposedChart data={data}>
