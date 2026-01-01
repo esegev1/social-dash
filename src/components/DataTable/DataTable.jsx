@@ -8,7 +8,8 @@ const DataTable = (props) => {
   if (tableType === "post_trends") {
     fieldsArr = ['local_time', 'delta_views', 'delta_reach', 'delta_likes', 'delta_comments', 'delta_saves', 'delta_shares']
   } else if (tableType === "latest_posts") {
-    fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'likes', 'comments', 'saves', 'shares' ]
+    // fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'likes', 'comments', 'saves', 'shares' ]
+    fieldsArr =  ['short_caption', 'views', 'reach', 'likes', 'comments', 'saves', 'shares','post_timestamp', 'trial_reel', 'id'  ]
   }
   
   const labelFixer = (label) => {

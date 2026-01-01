@@ -1,9 +1,9 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
   text-align: center;
 }
+
 
 ExecSummary {
   display: flex;
@@ -20,7 +20,9 @@ ExecSummary {
   background: white;
   padding: 1rem;
   box-sizing: border-box;
-
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 .refresh-data {

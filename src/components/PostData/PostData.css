@@ -50,3 +50,23 @@
     flex-shrink: 0;
 
 } */
+
+@media (max-width: 767px) {
+    .post-data-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .graph {
+        height: 500px;
+    }
+
+    .post-selection {
+        width: 100%;
+    }
+
+    #post-select {
+        flex-grow: 1;
+    }
+
+}
