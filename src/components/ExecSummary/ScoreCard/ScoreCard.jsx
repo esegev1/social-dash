@@ -10,7 +10,7 @@ const ScoreCard = (props) => {
 
     console.log("props: ", props.mainScore[0][props.title])
     return (
-        <div className="score-card container-style">
+        <div className="score-card">
             <p> {props.title}</p>
             <p> <strong>{props.mainScore[0][fieldname].toLocaleString('en-US')}</strong></p>
         </div>

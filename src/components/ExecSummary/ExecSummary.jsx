@@ -32,9 +32,9 @@ const ExecSummary = () => {
   return (
     <div className="exec-summary">
       <ScoreCard mainScore={execSummaryData} title="Followers" />
-      <ScoreCard mainScore={execSummaryData} title="Total views" />
-      <ScoreCard mainScore={execSummaryData} title="Total Likes" />
-      <ScoreCard mainScore={execSummaryData} title="Total comments" />
+      <ScoreCard mainScore={execSummaryData} title="Views" />
+      <ScoreCard mainScore={execSummaryData} title="Likes" />
+      <ScoreCard mainScore={execSummaryData} title="Comments" />
     </div>
   );
 };
