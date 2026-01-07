@@ -5,6 +5,27 @@
 }
 
 
+
+.follower-counts-table {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  gap: 10px;
+}
+
+.follower-counts-container {
+  grid-area: 2 / 1 / 3 / 3;
+}
+
+#interval-select {
+    width: 10vw;
+    border-radius: 5px;
+    padding: 2px;
+    background: white;
+    color: #666666; 
+    place-self: center; 
+}
+
 ExecSummary {
   display: flex;
 }

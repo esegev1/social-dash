@@ -15,8 +15,10 @@ const DashboardPage = () => {
   const [postList, setPostList] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [activityById, setActivityById] = useState([]);
+
   const [followerCounts, setFollowerCounts] = useState([])
   const [followerInterval, setFollowerInterval] = useState(30)
+  const [totalFollowers, setTotalFollowers] = useState(0)
 
   const postIdChange = useCallback(async (newPostId) => {
     try {
@@ -104,6 +106,13 @@ const DashboardPage = () => {
         const data = await fetchFollowerCountsData(followerInterval);
         console.log("data: ", data)
 
+        let sum = 0;
+        for (const row of data) {
+          sum += row.follower_delta
+        }
+
+        setTotalFollowers(sum)
+
         // // 🚀 UPDATED CODE: Sort the data reliably in DESCENDING order (newest first)
         // const sortedData = data.sort((a, b) => {
         //   // Convert timestamps to Date objects (or milliseconds) for accurate comparison.
@@ -172,20 +181,27 @@ const DashboardPage = () => {
     const data = await fetchFollowerCountsData(interval);
     console.log("data: ", data)
 
-        // // 🚀 UPDATED CODE: Sort the data reliably in DESCENDING order (newest first)
-        // const sortedData = data.sort((a, b) => {
-        //   // Convert timestamps to Date objects (or milliseconds) for accurate comparison.
-        //   const dateA = new Date(a.post_timestamp);
-        //   const dateB = new Date(b.post_timestamp);
+    let sum = 0;
+    for (const row of data) {
+      sum += row.follower_delta
+    }
 
-        //   // b - a results in DESCENDING order (Newest first)
-        //   return dateB - dateA;
-        // });
+    setTotalFollowers(sum)
+
+    // // 🚀 UPDATED CODE: Sort the data reliably in DESCENDING order (newest first)
+    // const sortedData = data.sort((a, b) => {
+    //   // Convert timestamps to Date objects (or milliseconds) for accurate comparison.
+    //   const dateA = new Date(a.post_timestamp);
+    //   const dateB = new Date(b.post_timestamp);
+
+    //   // b - a results in DESCENDING order (Newest first)
+    //   return dateB - dateA;
+    // });
     const sortedData = data;
 
     console.log("last 30 days of data (sorted newest first): ", sortedData);
     setFollowerCounts(sortedData); // Use the sorted data
-  } 
+  }
 
   // The loading state relies on the fetch completing, which is guarded by the token.
   if (isLoading) {
@@ -204,11 +220,17 @@ const DashboardPage = () => {
         <DataTable data={latestPosts} tableType="latest_posts" />
       </div>
       <div className="follower-counts-table container-style">
-        <select name="interval" id="interval" onChange={handleIntervalChange}>
+        <div className="followers-sum">
+          Total Gained Followers: {totalFollowers.toLocaleString('en-US')}
+        </div>
+        <select name="interval" id="interval-select" onChange={handleIntervalChange}>
           <option value="1">Today</option>
           <option value="30" selected>Last 30 days</option>
         </select>
-        <DataTable data={followerCounts} tableType="follower_counts" />
+        <div className="follower-counts-container">
+          <DataTable data={followerCounts} tableType="follower_counts" />
+        </div>
+
       </div>
 
     </>
