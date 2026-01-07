@@ -10,6 +10,8 @@ const DataTable = (props) => {
   } else if (tableType === "latest_posts") {
     // fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'likes', 'comments', 'saves', 'shares' ]
     fieldsArr =  ['short_caption', 'views', 'reach', 'likes', 'comments', 'saves', 'shares','post_timestamp', 'trial_reel', 'id'  ]
+  } else if (tableType === "follower_counts") {
+    fieldsArr =  ['date', 'follower_delta']
   }
   
   const labelFixer = (label) => {

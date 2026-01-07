@@ -67,6 +67,16 @@ export const fetchExecSummaryData = async () => {
     }
 };
 
+export const fetchFollowerCountsData = async (interval) => {
+    try {
+        console.log(`service kicked off: fetchFollowerCountsData`);
+        const res = await axiosClient.get(`followers/${interval}`);
+        return res.data;
+    } catch (error) {
+        logAndThrowError('failed to fetch follower counts', error);
+    }
+};
+
 export const updatePostMetadataTable = async () => {
     try {
         console.log(`service kicked off: updatePostMetadataTable`);
@@ -77,3 +87,4 @@ export const updatePostMetadataTable = async () => {
     }
 
 }
+
