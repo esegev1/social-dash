@@ -17,7 +17,7 @@ const DashboardPage = () => {
   const [activityById, setActivityById] = useState([]);
 
   const [followerCounts, setFollowerCounts] = useState([])
-  const [followerInterval, setFollowerInterval] = useState(30)
+  const [followerInterval, setFollowerInterval] = useState(1)
   const [totalFollowers, setTotalFollowers] = useState(0)
 
   const postIdChange = useCallback(async (newPostId) => {
@@ -224,8 +224,8 @@ const DashboardPage = () => {
           Total Gained Followers: {totalFollowers.toLocaleString('en-US')}
         </div>
         <select name="interval" id="interval-select" onChange={handleIntervalChange}>
-          <option value="1">Today</option>
-          <option value="30" selected>Last 30 days</option>
+          <option value="1" selected>Today</option>
+          <option value="30">Last 30 days</option>
         </select>
         <div className="follower-counts-container">
           <DataTable data={followerCounts} tableType="follower_counts" />

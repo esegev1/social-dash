@@ -71,6 +71,7 @@ export const fetchFollowerCountsData = async (interval) => {
     try {
         console.log(`service kicked off: fetchFollowerCountsData`);
         const res = await axiosClient.get(`followers/${interval}`);
+        console.log("res.data: ", res.data);
         return res.data;
     } catch (error) {
         logAndThrowError('failed to fetch follower counts', error);
