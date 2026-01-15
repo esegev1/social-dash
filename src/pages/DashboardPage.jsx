@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../context/AuthContext.jsx'; // 👈 IMPORT useAuth to get the token
 import { fetchLastXPosts, updatePostMetadataTable, fetchPostList, fetchActivityDataById, fetchFollowerCountsData } from '../services/dataServices.jsx';
 
@@ -6,7 +6,35 @@ import ExecSummary from '../components/ExecSummary/ExecSummary.jsx';
 import PostData from '../components/PostData/PostData.jsx';
 import DataTable from '../components/DataTable/DataTable.jsx';
 
+import './DashboardPage.css'
+
 const DashboardPage = () => {
+
+  //DARK MODE HANDLER
+  const getInitialTheme = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  // Apply theme to <html data-theme="..."> + persist
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
+  };
+
+  const themeIcon = useMemo(() => (theme === 'dark' ? '☾' : '☀️'), [theme]);
+  const themeLabel = useMemo(
+    () => (theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'),
+    [theme]
+  );
+
   // 👈 GET the access token from the context
   const { accessToken } = useAuth();
 
@@ -74,8 +102,8 @@ const DashboardPage = () => {
     const pullLatestPosts = async () => {
       setIsLoading(true);
       try {
-        // pull detailed data for last 20 posts
-        const data = await fetchLastXPosts(20);
+        // pull detailed data for last x posts, currently X is hardcoded in the SQL so number below doesnt matter
+        const data = await fetchLastXPosts(30);
 
         // 🚀 UPDATED CODE: Sort the data reliably in DESCENDING order (newest first)
         const sortedData = data.sort((a, b) => {
@@ -210,9 +238,21 @@ const DashboardPage = () => {
 
   return (
     <>
-      <h1>Frida Sofia Eats</h1>
+      <header>
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={themeLabel}
+          title={themeLabel}
+          className="theme-toggle"
+        >
+          {themeIcon}
+        </button>
+        <h1>Frida Sofia Eats</h1>
+      </header>
+      
       <ExecSummary />
-      <PostData postIdChange={postIdChange} postList={postList} selectedPostId={selectedPostId} activityById={activityById} />
+      <PostData postIdChange={postIdChange} postList={postList} selectedPostId={selectedPostId} activityById={activityById} theme={theme}/>
       <div className="latest-posts-table container-style">
         <button className='refresh-data' onClick={updateHandler}>
           <img src="https://cdn-icons-png.flaticon.com/512/860/860820.png"></img>

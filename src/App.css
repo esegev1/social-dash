@@ -1,8 +1,4 @@
-#root {
-  margin: 0 auto;
-  padding: 0 2rem;
-  text-align: center;
-}
+
 
 
 
@@ -18,12 +14,12 @@
 }
 
 #interval-select {
-    width: 10vw;
-    border-radius: 5px;
-    padding: 2px;
-    background: white;
-    color: #666666; 
-    place-self: center; 
+  width: 10vw;
+  border-radius: 5px;
+  padding: 2px;
+  background: var(--bg);
+  color: var(--text);
+  place-self: center;
 }
 
 ExecSummary {
@@ -40,9 +36,9 @@ ExecSummary {
 }
 
 .container-style {
-  border: 1px solid #ddd;
+  border: var(--border);
   border-radius: 10px;
-  background: white;
+  background: var(--card);
   padding: 1rem;
   box-sizing: border-box;
   overflow: hidden;
@@ -54,7 +50,7 @@ ExecSummary {
   background: none;
 }
 
-.refresh-data img{
+.refresh-data img {
   height: 30px;
   width: 30px;
 }

@@ -11,9 +11,9 @@
     align-items: center;
     width: 20vw;
     font-size: 3cqi;
-    border: 1px solid #ddd;
+    border: var(--border);
     border-radius: 10px;
-    background: white;
+    background: var(--card);
     box-sizing: border-box;
     
 }
@@ -22,4 +22,11 @@
     /* margin: 0; */
     margin: 5px 8px;
     min-width: 0;
+}
+
+.score-card h4 {
+    /* margin: 0; */
+    margin: 5px 8px;
+    min-width: 0;
+    color: var(--text2);
 }

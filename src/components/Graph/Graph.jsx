@@ -1,5 +1,6 @@
 import {ResponsiveContainer, ComposedChart,LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import './Graph.css'
+import { useEffect, useState } from 'react';
 // Format date for display
 const formatDate = ({ x, y, payload }) => {
     // console.log(`timestamp: ${timestamp}`)
@@ -61,8 +62,23 @@ const formatDate = ({ x, y, payload }) => {
 
 const Graph = (props) => {
     const fieldsArr = ['local_time', 'views', 'reach', 'likes', 'comments', 'saves', 'shares'];
-    // const type = props.type;
+    const theme = props.theme;
+    
+    const [textColor, setTextColor] = useState('#666666')
     // const data = props.data 
+
+    useEffect(() => {
+        const handleThemeColors = () => {
+            console.log("theme: ",theme)
+            if(theme === "dark") {
+                setTextColor('#f3f3f3')
+            } else {
+                setTextColor('#666666')
+            }
+        };
+        handleThemeColors()
+
+    },[theme])
 
     // Safety check and create reversed copy instead of mutating
     const data = props.data && Array.isArray(props.data) 
@@ -86,7 +102,7 @@ const Graph = (props) => {
                         tickFormatter={<formatDate />}
                         // angle={-45}
                         // textAnchor="end"
-                        tick={{ fill: '#666666' }}
+                        tick={{ fill: textColor }}
                         // stroke='none'
                         label=""
                         // height={40}
@@ -99,7 +115,7 @@ const Graph = (props) => {
                     <YAxis
                         datakey='views'
                         domain={['dataMin - 5', 'dataMax + 5']}
-                        tick={{ fill: '#666666' }}
+                        tick={{ fill: textColor }}
                         stroke='none'
                         allowDecimals={false}
                         tickFormatter={(value) => {
@@ -116,7 +132,7 @@ const Graph = (props) => {
                     <Line
                         type="monotone"
                         dataKey="views"
-                        stroke="#666666"
+                        stroke={textColor}
                         strokeWidth={1}
                         strokeOpacity={0.4}
                         dot={false}

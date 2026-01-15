@@ -32,8 +32,8 @@
     width: 15vw;
     border-radius: 5px;
     padding: 2px;
-    background: white;
-    color: #666666;  
+    background: var(--bg);
+    color: var(--text);  
 }
 
 /* .post-options {

@@ -9,23 +9,23 @@ const DataTable = (props) => {
     fieldsArr = ['local_time', 'delta_views', 'delta_reach', 'delta_likes', 'delta_comments', 'delta_saves', 'delta_shares']
   } else if (tableType === "latest_posts") {
     // fieldsArr =  ['id','post_timestamp', 'short_caption',  'trial_reel', 'views', 'reach', 'likes', 'comments', 'saves', 'shares' ]
-    fieldsArr =  ['short_caption', 'views', 'reach', 'likes', 'comments', 'saves', 'shares','post_timestamp', 'trial_reel', 'id'  ]
+    fieldsArr = ['short_caption', 'views', 'reach', 'likes', 'comments', 'saves', 'shares', 'shares_to_reach', 'post_timestamp', 'trial_reel', 'id']
   } else if (tableType === "follower_counts") {
-    fieldsArr =  ['date', 'follower_delta']
+    fieldsArr = ['date', 'follower_delta']
   }
-  
+
   const labelFixer = (label) => {
 
-    if (label=="local_time") {
-      label = label.replace(/_/g, " ") 
+    if (label == "local_time") {
+      label = label.replace(/_/g, " ")
     } else {
       label = label.replace(/delta_/g, "")
-      label = label.replace(/_/g, " ") 
+      label = label.replace(/_/g, " ")
     }
-    
+
     // Get the first character and convert it to uppercase
     const firstLetter = label[0].toUpperCase();
-  
+
     // Get the rest of the string (starting from index 1) and convert to lowercase
     const restOfString = label.slice(1).toLowerCase();
 
@@ -35,9 +35,9 @@ const DataTable = (props) => {
   return (
     <div className="data-table-container">
       <div className="data-summary-container">
-        
+
       </div>
-      <table className="data-table" style={ {gridTemplateColumns: `repeat(${fieldsArr.length}, auto)`}}>
+      <table className="data-table" style={{ gridTemplateColumns: `repeat(${fieldsArr.length}, auto)` }}>
         <thead>
           <tr>
             {fieldsArr.map((field, index) => (
@@ -54,20 +54,29 @@ const DataTable = (props) => {
                 {fieldsArr.map((field, fieldIndex) => (
                   // 3. Access the value from the item OBJECT using the field name as the key
                   <td key={fieldIndex}>
-                    {field==='local_time' ? item[field] : item[field] ? item[field].toLocaleString('en-US'): 0} 
+                    {/* {field==='local_time' ? item[field] : item[field] ? item[field].toLocaleString('en-US'): 0}  */}
+                    {
+                      !item[field]
+                        ? 0
+                        : (field === 'local_time' || field === 'post_timestamp')
+                          ? item[field]
+                          : field === 'shares_to_reach'
+                            ? item[field].toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
+                            : item[field].toLocaleString('en-US')
+                    }
                   </td>
                 ))}
               </tr>
             ))
-            ) : (
-              <tr>
-                <td colSpan={fieldsArr.length}>No data available</td>
-              </tr>
-            )}
+          ) : (
+            <tr>
+              <td colSpan={fieldsArr.length}>No data available</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
-   
+
   );
 };
 

@@ -10,6 +10,7 @@ const PostData = (props) => {
     const selectedPostId = props.selectedPostId
     const activityById = props.activityById
     const postIdChange = props.postIdChange
+    const theme = props.theme
 
     const handlePostIdChange = (event) => {
         const newPostId = event.target.value;
@@ -18,7 +19,7 @@ const PostData = (props) => {
 
     return (
         <div className="post-data-container">
-            <Graph data={activityById}/> 
+            <Graph data={activityById} theme={theme}/> 
             <div className="table-summary container-style">
                 <div className="post-selection">
                     <label htmlFor="post-select">Choose a Post:</label>
