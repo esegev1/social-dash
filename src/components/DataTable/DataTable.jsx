@@ -56,13 +56,22 @@ const DataTable = (props) => {
                   <td key={fieldIndex}>
                     {/* {field==='local_time' ? item[field] : item[field] ? item[field].toLocaleString('en-US'): 0}  */}
                     {
-                      !item[field]
-                        ? 0
-                        : (field === 'local_time' || field === 'post_timestamp')
-                          ? item[field]
-                          : field === 'shares_to_reach'
-                            ? item[field].toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
-                            : item[field].toLocaleString('en-US')
+                      item[field] != undefined
+                      ?
+                        (field === 'short_caption' || field === 'local_time' || field === 'post_timestamp' || field === 'id' || field === 'date')
+                          ? 
+                            item[field]
+                          : 
+                            field === 'trial_reel'
+                              ?
+                                item[field].toString()
+                              : field ===  'shares_to_reach'
+                                  ?
+                                    item[field].toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
+                                  : 
+                                    item[field].toLocaleString('en-US')
+                      :
+                      0
                     }
                   </td>
                 ))}
